@@ -7,8 +7,10 @@ const passport = require("passport");
 const initPassport = require("./config/passport-config");
 const methodOverride = require("method-override");
 const users = require("./config/users");
+const mountRoutes = require("./routes/index.js/index");
 const authRoute = require("./routes/auth.route");
 const homeRoute = require("./routes/home.route");
+const recordRoute = require("./routes/record.route");
 
 const app = express();
 initPassport(
@@ -31,8 +33,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use("/", homeRoute);
-app.use("/auth", authRoute);
+mountRoutes(app);
 
 const PORT = process.env.PORT || 5050;
 app.listen(PORT, () => {
