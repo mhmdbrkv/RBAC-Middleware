@@ -4,18 +4,18 @@ const {
   logout,
   getLogin,
   getRegister,
-} = require("../controllers/auth.controller.js");
+} = require("../controllers/auth.controller");
 
 const {
   checkAuthenticated,
   checkNotAuthenticated,
-} = require("../middlewares/auth.js");
+} = require("../middleware/auth.middleware");
 
 const express = require("express");
 const router = express.Router();
 
 router
-  .route("login")
+  .route("/login")
   .post(checkNotAuthenticated, login)
   .get(checkNotAuthenticated, getLogin);
 

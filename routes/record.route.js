@@ -3,8 +3,8 @@ const {
   getOneRecord,
 } = require("../controllers/record.controller");
 
-const { checkAuthenticated } = require("../middlewares/auth.middleware");
-const { checkPermissions } = require("../middlewares/rbac.middleware");
+const { checkAuthenticated } = require("../middleware/auth.middleware");
+const { checkPermissions } = require("../middleware/rbac.middleware");
 
 const express = require("express");
 const router = express.Router();

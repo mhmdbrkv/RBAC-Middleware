@@ -3,6 +3,7 @@ const { records } = require("../config/records.json");
 const getRecords = async (req, res, next) => {
   res.render("/", { records });
 };
+
 const getOneRecord = async (req, res, next) => {
   const { id } = req.params;
   let record;

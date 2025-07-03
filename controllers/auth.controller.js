@@ -13,7 +13,7 @@ const getRegister = async (req, res, next) => {
 const login = async (req, res, next) => {
   passport.authenticate("local", {
     successRedirect: "/",
-    failureRedirect: "/login",
+    failureRedirect: "/auth/login",
     failureFlash: true,
   });
 };
@@ -29,10 +29,10 @@ const register = async (req, res, next) => {
       password: hashedPassword,
       role,
     });
-    res.status(201).redirect("/login");
+    res.status(201).redirect("/auth/login");
   } catch (error) {
     console.log(`Error with register controller: ${error}`);
-    res.status(500).redirect("/register");
+    res.status(500).redirect("/auth/register");
   }
 };
 
@@ -41,7 +41,7 @@ const logout = async (req, res, next) => {
     if (err) {
       return next(err);
     }
-    res.status(200).redirect("/login");
+    res.status(200).redirect("/auth/login");
   });
 };
 
