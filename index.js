@@ -5,8 +5,10 @@ const flash = require("express-flash");
 const session = require("express-session");
 const passport = require("passport");
 const initPassport = require("./config/passport-config");
+const methodOverride = require("method-override");
 const users = require("./config/users");
 const authRoute = require("./routes/auth.route");
+const homeRoute = require("./routes/home.route");
 
 const app = express();
 initPassport(
@@ -15,7 +17,9 @@ initPassport(
   (id) => users.find((user) => user.id === id)
 );
 
+app.set("view engine", "ejs");
 app.use(express.json());
+app.use(methodOverride("_method"));
 app.use(flash());
 app.use(
   session({
@@ -27,6 +31,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use("/", homeRoute);
 app.use("/auth", authRoute);
 
 const PORT = process.env.PORT || 5050;
