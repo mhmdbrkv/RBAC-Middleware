@@ -9,7 +9,7 @@ const { checkPermissions } = require("../middleware/rbac.middleware");
 const express = require("express");
 const router = express.Router();
 
-router.use(checkPermissions("read_record"));
+router.use(checkPermissions("create_record"));
 
 router.get("/", checkAuthenticated, getRecords);
 

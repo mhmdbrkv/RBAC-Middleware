@@ -27,9 +27,11 @@ const checkPermissions =
       }
     });
 
-    if (!rolePermissions in permissions) {
-      return res.status(403).json({
-        status: "fail",
+    const rolePermissionsSet = new Set(rolePermissions);
+    const allExist = permissions.every((item) => rolePermissionsSet.has(item));
+
+    if (!allExist) {
+      return res.status(403).render("notAuthorized", {
         message: "Not Authorized to perfom this action",
       });
     }
