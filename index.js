@@ -12,11 +12,11 @@ const app = express();
 initPassport(
   passport,
   (email) => users.find((user) => user.email === email),
-  (id) => users.find((user) => user.id === id)
+  (id) => users.find((user) => user._id === id)
 );
 
 app.set("view engine", "ejs");
-app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride("_method"));
 app.use(flash());
 app.use(

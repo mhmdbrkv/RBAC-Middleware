@@ -1,18 +1,21 @@
 const { records } = require("../config/records.json");
 
 const getRecords = async (req, res, next) => {
-  res.render("/", { records });
+  res.render("records", {
+    records: records || [],
+    singleRecord: null,
+  });
 };
 
 const getOneRecord = async (req, res, next) => {
   const { id } = req.params;
-  let record;
-  records.forEach((r) => {
-    if (r._id === id) {
-      record = r;
-    }
+
+  let index = records.findIndex((r) => r._id.toString() === id.toString());
+
+  res.render("records", {
+    records: [],
+    singleRecord: records[index] || null,
   });
-  res.render("/", { singleRecord: record });
 };
 
 module.exports = {

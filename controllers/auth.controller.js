@@ -2,16 +2,16 @@ const users = require("../config/users");
 const passport = require("passport");
 const bcrypt = require("bcrypt");
 
-const getLogin = async (req, res, next) => {
+const getLogin = (req, res, next) => {
   res.render("login");
 };
 
-const getRegister = async (req, res, next) => {
+const getRegister = (req, res, next) => {
   res.render("register");
 };
 
-const login = async (req, res, next) => {
-  passport.authenticate("local", {
+const login = () => {
+  return passport.authenticate("local", {
     successRedirect: "/",
     failureRedirect: "/auth/login",
     failureFlash: true,
@@ -23,7 +23,7 @@ const register = async (req, res, next) => {
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
     users.push({
-      id: Date.now().toString(),
+      _id: Date.now().toString(),
       name,
       email,
       password: hashedPassword,
@@ -36,7 +36,7 @@ const register = async (req, res, next) => {
   }
 };
 
-const logout = async (req, res, next) => {
+const logout = (req, res, next) => {
   req.logOut((err) => {
     if (err) {
       return next(err);

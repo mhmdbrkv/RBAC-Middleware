@@ -16,7 +16,7 @@ const router = express.Router();
 
 router
   .route("/login")
-  .post(checkNotAuthenticated, login)
+  .post(checkNotAuthenticated, login())
   .get(checkNotAuthenticated, getLogin);
 
 router

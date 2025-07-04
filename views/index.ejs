@@ -7,14 +7,11 @@
   </head>
   <body>
     <h1>Home Page</h1>
-    <% if (records.length) { %> <% for (record of records) { %>
-    <p><%= record %></p>
-    <% } %> <% } else if (singleRecord) { %>
-    <p><%= singleRecord %></p>
-    <% } %>
 
     <form action="/auth/logout?_method=DELETE" method="POST">
       <button type="submit">Log Out</button>
     </form>
+
+    <a href="/records">Records</a>
   </body>
 </html>

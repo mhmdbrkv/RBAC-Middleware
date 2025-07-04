@@ -14,7 +14,12 @@ const checkRole = (roleName) => (req, res, next) => {
 const checkPermissions =
   (...permissions) =>
   (req, res, next) => {
-    const { role } = req.body;
+    if (!req.user) {
+      return res.status(403).render("notAuthorized", {
+        message: "Not Authorized to perfom this action",
+      });
+    }
+    const { role } = req.user;
     let rolePermissions;
     roles.forEach((r) => {
       if (r.name === role) {

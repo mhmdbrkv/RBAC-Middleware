@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 function initPassport(passport, getUserByEmail, getUserById) {
   const authenticateUser = async (email, password, done) => {
     const user = getUserByEmail(email);
+
     if (user == null) {
       return done(null, false, { message: "Bad Credentials" });
     }
