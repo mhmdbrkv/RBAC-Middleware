@@ -7,7 +7,7 @@ const getLogin = (req, res, next) => {
 };
 
 const getRegister = (req, res, next) => {
-  res.render("register");
+  res.render("register", { message: null });
 };
 
 const login = () => {
@@ -20,6 +20,13 @@ const login = () => {
 
 const register = async (req, res, next) => {
   const { name, email, password, role } = req.body;
+
+  if (users.find((user) => user.email === email)) {
+    return res
+      .status(409)
+      .render("register", { message: "Email already exists" });
+  }
+
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
     users.push({
