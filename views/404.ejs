@@ -1,3 +1,274 @@
-<h1><%= message%></h1>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Page Not Found</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+      }
 
-<a href="/">Home</a>
+      .container {
+        background-color: #fff;
+        padding: 40px 30px;
+        border-radius: 16px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        max-width: 800px;
+        width: 100%;
+        animation: fadeIn 0.6s ease-out;
+        text-align: center;
+      }
+
+      .error-icon {
+        font-size: 4rem;
+        margin-bottom: 10px;
+        color: #ff6a6a;
+      }
+
+      .error-code {
+        font-size: 3rem;
+        font-weight: bold;
+        color: #c0392b;
+        margin-bottom: 10px;
+      }
+
+      .error-title {
+        font-size: 2.2rem;
+        color: #333;
+        margin-bottom: 10px;
+      }
+
+      .error-subtitle {
+        font-size: 1.1rem;
+        color: #666;
+        margin-bottom: 20px;
+      }
+
+      .error-description {
+        font-size: 1rem;
+        color: #555;
+        margin-bottom: 30px;
+        line-height: 1.6;
+      }
+
+      .search-section {
+        margin-bottom: 30px;
+      }
+
+      .search-box {
+        display: flex;
+        justify-content: center;
+        max-width: 500px;
+        margin: 10px auto 0;
+        gap: 10px;
+      }
+
+      .search-input {
+        flex: 1;
+        padding: 10px 14px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 1rem;
+      }
+
+      .search-btn {
+        padding: 10px 18px;
+        background-color: #4a90e2;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .search-btn:hover {
+        background-color: #357ac9;
+      }
+
+      .action-buttons {
+        margin: 30px 0;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        padding: 10px 24px;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: none;
+        min-width: 130px;
+        transition: background-color 0.3s ease;
+        text-align: center;
+      }
+
+      .btn-primary {
+        background-color: #4caf50;
+        color: white;
+        border: none;
+      }
+
+      .btn-primary:hover {
+        background-color: #388e3c;
+      }
+
+      .btn-secondary {
+        background-color: #e74c3c;
+        color: white;
+        border: none;
+      }
+
+      .btn-secondary:hover {
+        background-color: #c0392b;
+      }
+
+      .helpful-links {
+        margin-top: 40px;
+        text-align: left;
+      }
+
+      .helpful-links h3 {
+        color: #333;
+        margin-bottom: 15px;
+        text-align: center;
+      }
+
+      .links-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 20px;
+      }
+
+      .link-card {
+        display: block;
+        background-color: #f8f9fa;
+        border: 1px solid #e0e0e0;
+        border-radius: 12px;
+        padding: 15px;
+        text-decoration: none;
+        color: #333;
+        transition: box-shadow 0.3s ease, transform 0.2s ease;
+      }
+
+      .link-card:hover {
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+        transform: translateY(-3px);
+      }
+
+      .link-card h4 {
+        margin-bottom: 6px;
+        font-size: 1.1rem;
+      }
+
+      .link-card p {
+        font-size: 0.95rem;
+        color: #666;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 600px) {
+        .container {
+          padding: 25px 20px;
+        }
+
+        .error-title {
+          font-size: 1.8rem;
+        }
+
+        .search-box {
+          flex-direction: column;
+        }
+
+        .search-btn {
+          width: 100%;
+        }
+
+        .action-buttons {
+          flex-direction: column;
+        }
+
+        .btn {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="error-icon">🔍</div>
+
+      <div class="error-code">404</div>
+
+      <h1 class="error-title">Page Not Found</h1>
+      <p class="error-subtitle">The page you're looking for doesn't exist</p>
+
+      <p class="error-description">
+        Sorry, we couldn't find the page you were looking for. The page might
+        have been moved, deleted, or you might have entered the wrong URL.
+      </p>
+
+      <div class="search-section">
+        <h3>Search for what you need</h3>
+        <div class="search-box">
+          <input
+            type="text"
+            class="search-input"
+            placeholder="Search our site..."
+          />
+          <button class="search-btn">Search</button>
+        </div>
+      </div>
+
+      <div class="action-buttons">
+        <a href="/" class="btn btn-primary">Go Home</a>
+        <button onclick="window.history.back()" class="btn btn-secondary">
+          Go Back
+        </button>
+      </div>
+
+      <div class="helpful-links">
+        <h3>Popular Pages</h3>
+        <div class="links-grid">
+          <a href="/" class="link-card">
+            <h4>🏠 Home</h4>
+            <p>Return to the main dashboard</p>
+          </a>
+          <a href="/records" class="link-card">
+            <h4>📋 Records</h4>
+            <p>View your data records</p>
+          </a>
+          <a href="/auth/login" class="link-card">
+            <h4>🔐 Login</h4>
+            <p>Sign in to your account</p>
+          </a>
+          <a href="/auth/register" class="link-card">
+            <h4>📝 Register</h4>
+            <p>Create a new account</p>
+          </a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

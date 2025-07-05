@@ -4,22 +4,284 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Records</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        margin: 0;
+        padding: 30px;
+        min-height: 100vh;
+      }
+
+      .container {
+        max-width: 1000px;
+        margin: auto;
+        background: #fff;
+        border-radius: 16px;
+        padding: 40px 30px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        animation: fadeIn 0.6s ease-out;
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        border-bottom: 1px solid #e0e0e0;
+        padding-bottom: 20px;
+      }
+
+      .header h1 {
+        font-size: 2.2rem;
+        color: #333;
+      }
+
+      .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .home-link,
+      .logout-btn {
+        background-color: #4a90e2;
+        color: white;
+        text-decoration: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        border: none;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .logout-btn {
+        background-color: #e74c3c;
+        color: white;
+      }
+
+      .home-link:hover {
+        background-color: #357ac9;
+      }
+
+      .logout-btn:hover {
+        background-color: #c0392b;
+      }
+
+      .records-section {
+        padding-top: 10px;
+      }
+
+      .records-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .records-title {
+        font-size: 1.5rem;
+        color: #333;
+      }
+
+      .records-count {
+        background-color: #eef2f7;
+        color: #333;
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 0.95rem;
+        font-weight: 500;
+      }
+
+      .records-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      }
+
+      .records-table th,
+      .records-table td {
+        padding: 14px;
+        text-align: left;
+        border-bottom: 1px solid #e0e0e0;
+      }
+
+      .records-table th {
+        background-color: #f8f9fa;
+        color: #444;
+        text-transform: uppercase;
+        font-size: 0.9rem;
+      }
+
+      .record-id,
+      .record-name {
+        display: inline-block;
+        color: #333;
+      }
+
+      .single-record-card {
+        background: #f9f9f9;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        text-align: left;
+      }
+
+      .single-record-card h3 {
+        font-size: 1.4rem;
+        margin-bottom: 20px;
+        color: #333;
+      }
+
+      .single-record-info div {
+        margin-bottom: 10px;
+        font-size: 1rem;
+      }
+
+      .no-records {
+        text-align: center;
+        padding: 60px 20px;
+      }
+
+      .no-records-icon {
+        font-size: 3rem;
+        margin-bottom: 10px;
+        color: #667eea;
+      }
+
+      .no-records h3 {
+        font-size: 1.6rem;
+        color: #333;
+        margin-bottom: 10px;
+      }
+
+      .no-records p {
+        color: #666;
+        margin-bottom: 20px;
+      }
+
+      .add-record-btn {
+        display: inline-block;
+        padding: 10px 22px;
+        background-color: #4caf50;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: background-color 0.3s ease;
+      }
+
+      .add-record-btn:hover {
+        background-color: #388e3c;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .header {
+          flex-direction: column;
+          gap: 15px;
+        }
+
+        .records-header {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 10px;
+        }
+
+        .nav-actions {
+          flex-direction: column;
+          align-items: flex-end;
+        }
+
+        .records-table th,
+        .records-table td {
+          font-size: 0.9rem;
+        }
+
+        .container {
+          padding: 25px 20px;
+        }
+      }
+    </style>
   </head>
   <body>
-    <h1>Records Page</h1>
+    <div class="container">
+      <header class="header">
+        <h1>Records</h1>
+        <div class="nav-actions">
+          <a href="/" class="home-link">Home</a>
 
-    <% if (records.length) { %> <% for (record of records) { %>
-    <p>ID: <%= record._id %>, Name: <%= record.name %></p>
-    <% } %> <% } else if (singleRecord) { %>
-    <p>ID: <%= singleRecord._id %>, Name: <%= singleRecord.name %></p>
-    <% } else { %>
-    <p>No record found</p>
-    <% }%>
+          <form
+            action="/auth/logout?_method=DELETE"
+            method="POST"
+            style="display: inline"
+          >
+            <button type="submit" class="logout-btn">Log Out</button>
+          </form>
+        </div>
+      </header>
 
-    <form action="/auth/logout?_method=DELETE" method="POST">
-      <button type="submit">Log Out</button>
-    </form>
+      <main class="records-section">
+        <% if (records.length) { %>
+        <div class="records-header">
+          <h2 class="records-title">All Records</h2>
+          <div class="records-count"><%= records.length %> Records</div>
+        </div>
 
-    <a href="/">Home</a>
+        <table class="records-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for (record of records) { %>
+            <tr>
+              <td><span class="record-id"><%= record._id %></span></td>
+              <td><span class="record-name"><%= record.name %></span></td>
+            </tr>
+            <% } %>
+          </tbody>
+        </table>
+        <% } else if (singleRecord) { %>
+        <div class="single-record-card">
+          <h3>Record Details</h3>
+          <div class="single-record-info">
+            <div>
+              <strong>ID:</strong>
+              <span class="record-id"><%= singleRecord._id %></span>
+            </div>
+            <div>
+              <strong>Name:</strong>
+              <span class="record-name"><%= singleRecord.name %></span>
+            </div>
+          </div>
+        </div>
+        <% } else { %>
+        <div class="no-records">
+          <div class="no-records-icon">📋</div>
+          <h3>No Records Found</h3>
+          <p>
+            You don't have any records yet. Start by adding your first record to
+            get started.
+          </p>
+          <a href="#" class="add-record-btn">Add New Record</a>
+        </div>
+        <% } %>
+      </main>
+    </div>
   </body>
 </html>
